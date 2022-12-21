@@ -16,12 +16,29 @@ namespace DapperTest.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
+        [HttpGet("dr")]
         public async Task<IActionResult> GetList([FromQuery] int Page, [FromQuery] int PageSize)
         {
             try
             {
-                var res = await _userService.GetRecordsList(Page, PageSize);
+                Page = 1;
+                PageSize = 25;
+                var res = await _userService.GetDrRecordsList(Page, PageSize);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("dl")]
+        public async Task<IActionResult> GetDlList([FromQuery] int Page, [FromQuery] int PageSize)
+        {
+            try
+            {
+                Page = 1;
+                PageSize = 25;
+                var res = await _userService.GetDlRecordsList(Page, PageSize);
                 return Ok(res);
             }
             catch (Exception ex)
